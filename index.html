@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>引爆 AI 代理新革命 · Bangkok AI Workshop 2026</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+
+<script>
+tailwind.config={theme:{extend:{colors:{gold:'#D4A017','gold-l':'#F2C94C','gold-d':'#9A7010',ink:'#07070F','ink-m':'#0E0E1E','ink-c':'#141428'},fontFamily:{display:['Playfair Display','serif'],body:['Noto Sans TC','Sarabun','sans-serif']}}}}
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans TC','Sarabun',sans-serif;background:#07070F;color:#E8E0D0;overflow-x:hidden;cursor:none;line-height:1.75}
+
+/* ── GRAIN NOISE ── */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;opacity:.032;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+background-repeat:repeat;background-size:180px 180px}
+
+/* ── CURSOR ── */
+#cr{width:34px;height:34px;border:1.5px solid #D4A017;border-radius:50%;position:fixed;top:0;left:0;transform:translate(-50%,-50%);pointer-events:none;z-index:99999;mix-blend-mode:difference;transition:width .3s,height .3s,background .3s,border-color .3s;will-change:transform}
+#cd{width:5px;height:5px;background:#F2C94C;border-radius:50%;position:fixed;top:0;left:0;transform:translate(-50%,-50%);pointer-events:none;z-index:100000;will-change:transform}
+body.ch #cr{width:58px;height:58px;background:rgba(212,160,23,.1);border-color:#F2C94C}
+@media(hover:none){#cr,#cd{display:none}body{cursor:auto}a,button{cursor:pointer}}
+
+/* ── VARS ── */
+:root{
+  --g:#D4A017;--gl:#F2C94C;--gd:#9A7010;
+  --bg:#07070F;--bm:#0E0E1E;--bc:#141428;
+  --tx:#E8E0D0;--mt:#8A7E6E;
+  --grad:linear-gradient(135deg,#D4A017 0%,#F2C94C 50%,#D4A017 100%);
+}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#07070F}
+::-webkit-scrollbar-thumb{background:#9A7010;border-radius:2px}
+
+/* ── TYPOGRAPHY ── */
+.font-display{font-family:'Playfair Display',serif}
+.gt{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% auto}
+.gs{background:linear-gradient(90deg,#D4A017,#F2C94C,#FFD700,#F2C94C,#D4A017);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite}
+@keyframes shimmer{100%{background-position:400% center}}
+
+/* ── GLASS ── */
+.glass{background:rgba(255,255,255,.035);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(212,160,23,.18);border-radius:16px}
+.glass:hover{border-color:rgba(212,160,23,.42);background:rgba(255,255,255,.055);transition:all .3s}
+.glass-s{background:rgba(255,255,255,.05);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(212,160,23,.22);border-radius:20px}
+
+/* ── BUTTONS ── */
+.btn-gold{display:inline-flex;align-items:center;gap:.6rem;background:var(--grad);color:#07070F;font-weight:800;font-size:14px;padding:14px 34px;border-radius:50px;border:none;cursor:none;position:relative;overflow:hidden;transition:all .3s}
+.btn-gold::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background .3s}
+.btn-gold:hover::before{background:rgba(255,255,255,.15)}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 14px 45px rgba(212,160,23,.45)}
+.btn-out{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--gl);font-weight:600;font-size:14px;padding:13px 32px;border-radius:50px;border:1.5px solid rgba(212,160,23,.45);cursor:none;transition:all .3s}
+.btn-out:hover{border-color:var(--gl);background:rgba(212,160,23,.08);transform:translateY(-3px)}
+
+/* ── MARQUEE ── */
+.mq-wrap{overflow:hidden;white-space:nowrap;border-top:1px solid rgba(212,160,23,.1);border-bottom:1px solid rgba(212,160,23,.1);background:rgba(212,160,23,.03);padding:.65rem 0}
+.mq-track{display:inline-flex;gap:2rem;animation:marquee 32s linear infinite}
+.mq-track:hover{animation-play-state:paused}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mq-item{display:inline-flex;align-items:center;gap:.5rem;font-size:12px;font-weight:700;color:rgba(212,160,23,.55);letter-spacing:2.5px;text-transform:uppercase;padding:0 1rem}
+.mq-dot{width:3px;height:3px;background:var(--g);border-radius:50%;opacity:.4}
+
+/* ── NAV ── */
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:.85rem 2rem;transition:background .4s,backdrop-filter .4s,border .4s}
+#nav.scrolled{background:rgba(7,7,15,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,160,23,.14)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-size:14px;font-weight:800;letter-spacing:.5px;text-decoration:none;cursor:none}
+.nav-links{display:flex;gap:.3rem;list-style:none}
+.nav-links a{color:var(--mt);text-decoration:none;font-size:13px;padding:7px 13px;border-radius:8px;transition:color .2s,background .2s;cursor:none}
+.nav-links a:hover{color:var(--gl);background:rgba(212,160,23,.08)}
+.nav-mb{display:none;background:none;border:none;color:var(--gl);font-size:1.5rem;cursor:none}
+@media(max-width:768px){
+  .nav-mb{display:block}
+  .nav-links{display:none;position:absolute;top:65px;left:0;right:0;flex-direction:column;background:rgba(7,7,15,.98);padding:1rem 0;border-bottom:1px solid rgba(212,160,23,.12)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:13px 2rem;border-radius:0}
+}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:80px}
+.h-bg{position:absolute;inset:0;background:linear-gradient(180deg,#07070F 0%,#0C0820 45%,#060E06 100%)}
+.h-img{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1920&q=80');background-size:cover;background-position:center 45%;opacity:.11;filter:saturate(.25)}
+.h-glow{position:absolute;width:900px;height:900px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(212,160,23,.065) 0%,transparent 70%);pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:orbF ease-in-out infinite alternate}
+@keyframes orbF{from{transform:translate(0,0) scale(1)}to{transform:translate(25px,-35px) scale(1.1)}}
+
+/* Temple silhouette */
+.temple-svg{position:absolute;bottom:0;left:0;right:0;opacity:.07;pointer-events:none}
+
+/* Particles */
+#pts{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.pt{position:absolute;background:#D4A017;border-radius:50%;animation:ptF linear infinite;opacity:0}
+@keyframes ptF{0%{transform:translateY(110vh) rotate(0);opacity:0}8%{opacity:.5}92%{opacity:.5}100%{transform:translateY(-80px) rotate(720deg);opacity:0}}
+
+.h-inner{position:relative;z-index:10;max-width:1150px;margin:0 auto;padding:4rem 2rem 5rem}
+.h-tag{display:inline-flex;align-items:center;gap:.6rem;background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.3);border-radius:20px;padding:5px 16px;font-size:12px;color:var(--g);letter-spacing:1px;margin-bottom:1.8rem}
+.h-title{font-size:clamp(2.2rem,6vw,5rem);font-weight:900;line-height:1.1;font-family:'Playfair Display','Noto Sans TC',serif;margin-bottom:1rem}
+.h-sub{font-size:1rem;color:var(--mt);max-width:660px;line-height:1.85;margin-bottom:2.5rem}
+.h-sub strong{color:var(--tx)}
+.h-stats{display:flex;gap:2.5rem;flex-wrap:wrap;margin-bottom:2.8rem}
+.hst .num{font-size:2.8rem;font-weight:900;font-family:'Playfair Display',serif;display:block;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hst .lbl{font-size:12px;color:var(--mt)}
+.h-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:640px}
+@media(max-width:600px){.h-cards{grid-template-columns:1fr}}
+.h-card{background:rgba(255,255,255,.04);border:1px solid rgba(212,160,23,.22);border-radius:14px;padding:.9rem 1.1rem}
+.h-card .ico{font-size:1.3rem;margin-bottom:.25rem}
+.h-card .lbl{font-size:10px;color:var(--g);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.2rem}
+.h-card .val{font-size:13px;line-height:1.5}
+
+/* Scroll indicator */
+.scroll-ind{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:.4}
+.scroll-ind span{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--g)}
+.scroll-arrow{width:1px;height:40px;background:linear-gradient(to bottom,var(--g),transparent);animation:scArrow 2s ease-in-out infinite}
+@keyframes scArrow{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+
+/* ── SECTIONS ── */
+section{padding:6rem 1.5rem}
+.ctr{max-width:1100px;margin:0 auto}
+.sec-hd{text-align:center;margin-bottom:3rem}
+.sec-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--g);margin-bottom:1rem}
+.sec-tag::before,.sec-tag::after{content:'';display:block;width:20px;height:1px;background:var(--g);opacity:.5}
+.sec-title{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;line-height:1.2;font-family:'Playfair Display','Noto Sans TC',serif}
+.sec-desc{font-size:.95rem;color:var(--mt);max-width:640px;margin:.7rem auto 0;line-height:1.8}
+
+/* Lotus div */
+.lotus{display:flex;align-items:center;justify-content:center;gap:1rem;margin:.5rem 0 2.5rem}
+.ll{flex:1;max-width:180px;height:1px;background:linear-gradient(to right,transparent,rgba(212,160,23,.5))}
+.lr{background:linear-gradient(to left,transparent,rgba(212,160,23,.5))}
+.ls{color:rgba(212,160,23,.65);font-size:1rem}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(28px)}
+.rv.in{opacity:1;transform:translateY(0);transition:opacity .75s ease,transform .75s ease}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+
+/* ── ABOUT ── */
+#about{background:linear-gradient(180deg,#07070F 0%,#0D0820 100%)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+.hl{border-left:3px solid var(--g);padding:1rem 1.3rem;background:rgba(212,160,23,.05);border-radius:0 10px 10px 0;margin-bottom:1rem}
+.hl h4{font-size:14px;font-weight:700;color:var(--gl);margin-bottom:.35rem}
+.hl p{font-size:13px;color:var(--mt);line-height:1.75}
+.bkk{background:linear-gradient(135deg,rgba(27,77,62,.3),rgba(7,7,15,.9));border:1px solid rgba(27,77,62,.6);border-radius:20px;padding:2rem;text-align:center;position:relative;overflow:hidden}
+.bkk::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(212,160,23,.07) 0%,transparent 70%);animation:bkkP 5s ease-in-out infinite alternate}
+@keyframes bkkP{from{opacity:.5}to{opacity:1;transform:scale(1.05)}}
+.bkk .thai{font-size:10px;color:rgba(212,160,23,.45);letter-spacing:4px;margin-bottom:.8rem;display:block}
+.bkk h3{font-size:1.5rem;font-weight:900;color:var(--g);font-family:'Playfair Display',serif;margin-bottom:.3rem}
+.bkk .dates{font-size:1rem;font-weight:700;color:var(--tx);margin:.8rem 0 .4rem}
+.bkk p{font-size:13px;color:var(--mt)}
+.about-pts{display:flex;flex-direction:column;gap:1rem}
+.apt{display:flex;align-items:flex-start;gap:1rem;padding:1.2rem;background:rgba(255,255,255,.025);border:1px solid rgba(212,160,23,.1);border-radius:12px;transition:all .25s}
+.apt:hover{border-color:rgba(212,160,23,.35);background:rgba(212,160,23,.05)}
+.apt .ap-ico{font-size:1.5rem;flex-shrink:0}
+.apt h4{font-size:14px;font-weight:700;color:var(--gl);margin-bottom:.3rem}
+.apt p{font-size:13px;color:var(--mt);line-height:1.7}
+
+/* ── DAY SECTION ── */
+.day-sec{position:relative;background:var(--bm)}
+.day-sec::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--g),transparent)}
+.day-badge{display:inline-flex;align-items:center;gap:.7rem;background:var(--grad);color:#07070F;font-weight:900;font-size:.95rem;padding:.5rem 1.4rem;border-radius:40px;margin-bottom:1.5rem;letter-spacing:.5px}
+.day-title{font-size:clamp(1.4rem,3vw,2.1rem);font-weight:900;font-family:'Playfair Display','Noto Sans TC',serif;margin-bottom:.5rem}
+.day-sub{font-size:14px;color:var(--mt);margin-bottom:2rem;max-width:680px;line-height:1.7}
+
+/* Schedule */
+.sch{display:flex;flex-direction:column;gap:.7rem}
+.si{display:grid;grid-template-columns:100px 1fr;gap:1.2rem;padding:1.1rem 1.3rem;background:rgba(255,255,255,.025);border:1px solid rgba(212,160,23,.1);border-radius:14px;transition:all .25s;position:relative;overflow:hidden}
+.si::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--grad);transition:height .3s;border-radius:0 0 3px 3px}
+.si:hover{border-color:rgba(212,160,23,.35);background:rgba(212,160,23,.05);transform:translateX(5px)}
+.si:hover::before{height:100%}
+.si.hl2{border-color:rgba(212,160,23,.3);background:rgba(212,160,23,.06)}
+.si.brk{opacity:.55}
+.si.egg{border-color:rgba(255,80,20,.3);background:rgba(255,60,10,.04)}
+.si .t{font-size:12px;color:var(--g);font-weight:700;padding-top:2px;white-space:nowrap}
+.si .b h4{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:.35rem;line-height:1.4}
+.si .b p{font-size:13px;color:var(--mt);line-height:1.68}
+.si .b ul{padding-left:1.2rem;font-size:13px;color:var(--mt);line-height:1.8}
+.do-p{display:inline-flex;align-items:center;gap:.4rem;background:rgba(15,123,92,.2);border:1px solid rgba(15,123,92,.5);border-radius:6px;padding:2px 9px;font-size:11px;color:#4DD9A0;margin-top:.4rem}
+.bhot{display:inline-block;background:var(--grad);color:#07070F;font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;margin-left:.4rem;vertical-align:middle}
+@media(max-width:600px){.si{grid-template-columns:80px 1fr}}
+
+/* ── TOOLS ── */
+#tools{background:#07070F}
+.tool-row{display:flex;align-items:flex-start;gap:1.2rem;padding:1.3rem 1.5rem;background:rgba(255,255,255,.028);border:1px solid rgba(212,160,23,.12);border-radius:16px;transition:all .25s;margin-bottom:.8rem;position:relative;overflow:hidden}
+.tool-row::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,160,23,0),rgba(212,160,23,.04));opacity:0;transition:opacity .3s}
+.tool-row:hover{border-color:rgba(212,160,23,.42)}
+.tool-row:hover::after{opacity:1}
+.t-ico{width:52px;height:52px;border-radius:14px;background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.2);display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0}
+.t-nm{font-size:15px;font-weight:700;color:var(--tx)}
+.t-desc{font-size:13px;color:var(--mt);line-height:1.65;margin-top:.2rem}
+
+/* ── TAKEAWAYS ── */
+#takeaways{background:linear-gradient(135deg,#0D0820,#07070F)}
+.tw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+@media(max-width:900px){.tw-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.tw-grid{grid-template-columns:1fr}}
+.tw{padding:1.5rem;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(212,160,23,.12);transition:all .3s;position:relative;overflow:hidden}
+.tw::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.tw:hover{border-color:rgba(212,160,23,.38);transform:translateY(-5px);box-shadow:0 18px 45px rgba(212,160,23,.1)}
+.tw:hover::before{transform:scaleX(1)}
+.tw-ico{font-size:2.2rem;margin-bottom:.9rem}
+.tw-title{font-size:15px;font-weight:700;color:var(--gl);margin-bottom:.5rem}
+.tw-desc{font-size:13px;color:var(--mt);line-height:1.7}
+.stats-row{display:flex;justify-content:center;gap:0;margin-top:3rem;border:1px solid rgba(212,160,23,.15);border-radius:20px;overflow:hidden;flex-wrap:wrap}
+.sr{flex:1;min-width:140px;text-align:center;padding:2rem 1.5rem;border-right:1px solid rgba(212,160,23,.12)}
+.sr:last-child{border-right:none}
+.sr-num{font-size:2.6rem;font-weight:900;font-family:'Playfair Display',serif;display:block;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sr-lbl{font-size:12px;color:var(--mt);margin-top:.3rem}
+
+/* ── AUDIENCE ── */
+#audience{background:var(--bg)}
+.aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+@media(max-width:900px){.aud-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.aud-grid{grid-template-columns:1fr}}
+.aud{padding:1.4rem;border-radius:14px;background:rgba(255,255,255,.028);border:1px solid rgba(212,160,23,.1);transition:all .25s}
+.aud:hover{border-color:rgba(212,160,23,.4);transform:translateY(-3px)}
+.aud-ck{color:var(--g);font-weight:700;margin-right:.4rem}
+.aud-title{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:.45rem}
+.aud-desc{font-size:13px;color:var(--mt);line-height:1.65}
+
+/* ── INSTRUCTOR ── */
+#instructor{background:linear-gradient(135deg,#060E08 0%,#07070F 50%,#0C0717 100%)}
+.inst-grid{display:grid;grid-template-columns:290px 1fr;gap:3.5rem;align-items:start}
+@media(max-width:768px){.inst-grid{grid-template-columns:1fr}.inst-pw{max-width:240px;margin:0 auto}}
+.inst-pw{position:relative}
+.inst-photo{width:100%;display:block;border-radius:24px;border:2px solid rgba(212,160,23,.4);box-shadow:0 28px 70px rgba(212,160,23,.22);animation:photoF 5s ease-in-out infinite}
+@keyframes photoF{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.inst-frame{position:absolute;inset:-8px;border:1px solid rgba(212,160,23,.18);border-radius:32px;pointer-events:none}
+.inst-frame::before,.inst-frame::after{content:'✦';position:absolute;color:rgba(212,160,23,.5);font-size:12px}
+.inst-frame::before{top:-7px;left:-7px}
+.inst-frame::after{bottom:-7px;right:-7px}
+.inst-name{font-size:2rem;font-weight:900;font-family:'Playfair Display',serif;margin-bottom:.25rem}
+.inst-role{font-size:.95rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;margin-bottom:1.3rem}
+.ibadge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.28);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--g);margin:.25rem}
+.inst-bio{font-size:14px;color:var(--mt);line-height:1.85;margin-bottom:1.3rem}
+.itag{display:inline-block;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--mt);margin:.2rem}
+
+/* ── MODULE ITEMS (no time) ── */
+.si-mod{padding:1.2rem 1.5rem;background:rgba(255,255,255,.025);border:1px solid rgba(212,160,23,.1);border-radius:14px;margin-bottom:.7rem;position:relative;overflow:hidden;transition:all .25s}
+.si-mod::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--grad);transition:height .3s;border-radius:0 0 3px 3px}
+.si-mod:hover{border-color:rgba(212,160,23,.35);background:rgba(212,160,23,.05);transform:translateX(5px)}
+.si-mod:hover::before{height:100%}
+.si-mod.hl2{border-color:rgba(212,160,23,.3);background:rgba(212,160,23,.06)}
+.si-mod.egg{border-color:rgba(255,80,20,.3);background:rgba(255,60,10,.04)}
+.si-mod.brk{opacity:.55;transform:none!important}
+.si-mod h4{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:.4rem;line-height:1.4}
+.si-mod p{font-size:13px;color:var(--mt);line-height:1.7}
+.si-mod ul{padding-left:1.2rem;font-size:13px;color:var(--mt);line-height:1.85}
+.mod-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(212,160,23,.15);border:1px solid rgba(212,160,23,.35);font-size:10px;font-weight:800;color:var(--g);flex-shrink:0;margin-right:.5rem;vertical-align:middle}
+
+/* ── DAY VALUE BOX ── */
+.day-value{margin-top:2.5rem;padding:2rem 2rem 1.5rem;background:linear-gradient(135deg,rgba(212,160,23,.09),rgba(212,160,23,.03));border:1px solid rgba(212,160,23,.32);border-radius:20px;position:relative;overflow:hidden}
+.day-value::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad)}
+.dv-title{font-size:1rem;font-weight:900;color:var(--gl);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+.dv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.85rem}
+.dv-item{display:flex;align-items:flex-start;gap:.7rem;padding:.75rem 1rem;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(212,160,23,.12)}
+.dv-ico{font-size:.9rem;flex-shrink:0;color:#B8860B;font-weight:700;margin-top:3px}
+.dv-txt{font-size:13px;color:var(--mt);line-height:1.6}
+.dv-txt strong{color:var(--tx);display:block;font-size:13px;margin-bottom:.15rem}
+
+/* ── FAQ ── */
+#faq{background:var(--bm)}
+.fq-wrap{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:.85rem}
+.fq{background:rgba(255,255,255,.025);border:1px solid rgba(212,160,23,.12);border-radius:14px;overflow:hidden;transition:border-color .3s}
+.fq.open{border-color:rgba(212,160,23,.45)}
+.fq-q{display:flex;justify-content:space-between;align-items:center;padding:1.15rem 1.4rem;cursor:none;font-size:14px;font-weight:600;color:var(--tx);gap:1rem;user-select:none}
+.fq-q:hover{color:var(--gl)}
+.fq-ic{color:var(--g);font-size:1.1rem;flex-shrink:0;transition:transform .3s}
+.fq.open .fq-ic{transform:rotate(45deg)}
+.fq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s}
+.fq.open .fq-a{max-height:350px;padding:0 1.4rem 1.2rem}
+.fq-a p{font-size:13px;color:var(--mt);line-height:1.75}
+
+/* ── FOOTER ── */
+footer{background:linear-gradient(180deg,#07070F,#030308);padding:4rem 1.5rem 2rem;border-top:1px solid rgba(212,160,23,.14);text-align:center}
+.ft-title{font-size:1.8rem;font-weight:900;font-family:'Playfair Display',serif;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.4rem}
+.ft-sub{font-size:13px;color:var(--mt);margin-bottom:1.5rem}
+.ft-info{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;font-size:13px;color:var(--mt);margin-bottom:2rem}
+.ft-pattern{font-size:16px;letter-spacing:8px;color:rgba(212,160,23,.25);margin:1rem 0}
+.ft-copy{border-top:1px solid rgba(255,255,255,.05);padding-top:1.2rem;font-size:11px;color:rgba(255,255,255,.2);margin-top:1.5rem}
+
+/* ── GOLD SEPARATOR ── */
+.gsep{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(212,160,23,.4),transparent);margin:1rem 0}
+
+/* ── SONAR ── */
+.sonar-wrap{position:relative;width:60px;height:60px;display:flex;align-items:center;justify-content:center}
+.sonar-ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--g);animation:sonarA 2s ease-out infinite}
+@keyframes sonarA{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.5);opacity:0}}
+.sonar-core{width:20px;height:20px;background:var(--grad);border-radius:50%;z-index:1}
+
+/* ── VERT TEXT ── */
+.vt{writing-mode:vertical-rl;text-orientation:mixed;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(212,160,23,.25)}
+
+/* ── GOLD CARD ── */
+.gcard{background:var(--bc);border-radius:18px;padding:1.8rem;border:1px solid rgba(212,160,23,.18);position:relative;overflow:hidden}
+.gcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad)}
+
+/* ── MAGNETIC ZONE ── */
+.mag{transition:transform .4s cubic-bezier(.23,1,.32,1)}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     CUSTOM CURSOR
+══════════════════════════════════════════ -->
+<div id="cr"></div>
+<div id="cd"></div>
+
+<!-- ══════════════════════════════════════════
+     NAV
+══════════════════════════════════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand"><span class="gt">🇹🇭</span> Bangkok AI Workshop</a>
+    <button class="nav-mb" onclick="toggleNav()">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">課程介紹</a></li>
+      <li><a href="#day1">第一天</a></li>
+      <li><a href="#day2">第二天</a></li>
+      <li><a href="#tools">工具</a></li>
+      <li><a href="#instructor">講師</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section id="hero">
+  <div class="h-bg"></div>
+  <div class="h-img"></div>
+  <div class="h-glow"></div>
+
+  <!-- Orbs -->
+  <div class="orb" style="width:500px;height:500px;background:radial-gradient(ellipse,rgba(212,160,23,.08),transparent);top:-10%;left:-5%;animation-duration:9s"></div>
+  <div class="orb" style="width:400px;height:400px;background:radial-gradient(ellipse,rgba(100,50,180,.06),transparent);bottom:0%;right:5%;animation-duration:11s;animation-delay:-3s"></div>
+  <div class="orb" style="width:300px;height:300px;background:radial-gradient(ellipse,rgba(27,77,62,.07),transparent);bottom:20%;left:10%;animation-duration:8s;animation-delay:-5s"></div>
+
+  <!-- Particles -->
+  <div id="pts"></div>
+
+  <!-- Thai temple SVG silhouette -->
+  <svg class="temple-svg" viewBox="0 0 1440 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 260 L0 190 L55 190 L55 170 L75 160 L95 145 L115 160 L135 170 L135 190 L190 190 L190 260Z" fill="#D4A017"/>
+    <path d="M170 260 L170 200 L210 200 L210 180 L240 168 L270 180 L270 200 L320 200 L320 260Z" fill="#D4A017"/>
+    <path d="M310 260 L310 205 L330 205 L330 182 L355 165 L385 148 L415 165 L440 182 L440 205 L460 205 L460 260Z" fill="#D4A017"/>
+    <path d="M700 260 L700 170 L720 170 L720 150 L745 130 L775 110 L805 130 L830 150 L830 170 L850 170 L850 260Z" fill="#D4A017"/>
+    <path d="M520 260 L520 210 L548 210 L548 190 L578 172 L608 190 L608 210 L636 210 L636 260Z" fill="#D4A017"/>
+    <path d="M1020 260 L1020 182 L1042 182 L1042 160 L1068 138 L1098 122 L1128 138 L1154 160 L1154 182 L1176 182 L1176 260Z" fill="#D4A017"/>
+    <path d="M1210 260 L1210 200 L1238 200 L1238 180 L1265 165 L1292 180 L1292 200 L1320 200 L1320 260Z" fill="#D4A017"/>
+    <path d="M1360 260 L1360 208 L1378 208 L1378 190 L1398 175 L1420 190 L1420 208 L1440 208 L1440 260Z" fill="#D4A017"/>
+    <rect x="0" y="255" width="1440" height="5" fill="#D4A017"/>
+  </svg>
+
+  <div class="h-inner">
+    <div class="h-tag">
+      <span>🇹🇭</span> Bangkok, Thailand · May 2026
+    </div>
+
+    <h1 class="h-title" id="heroTitle">
+      引爆 <span class="gt">AI 代理</span><br>新革命<br>
+      <span style="font-size:.55em;font-weight:400;font-family:'Noto Sans TC',sans-serif;color:var(--mt);">實戰工作坊 · Bangkok AI Workshop</span>
+    </h1>
+
+    <p class="h-sub">
+      <strong>以前你問 AI，AI 回答你。</strong>現在不一樣了——AI 可以幫你做事，幫你寫信、幫你找資料、幫你操電腦，就算你在睡覺也沒關係。<br>
+      這兩天，我們讓你<strong>真正會用</strong>。
+    </p>
+
+    <div class="h-stats">
+      <div class="hst"><span class="num" data-n="7">7</span><span class="lbl">頂級 AI 工具</span></div>
+      <div class="hst"><span class="num" data-n="2">2</span><span class="lbl">天完整實戰</span></div>
+      <div class="hst"><span class="num" data-n="0">0</span><span class="lbl">技術門檻</span></div>
+    </div>
+
+    <div class="h-cards">
+      <div class="h-card">
+        <div class="ico">📍</div>
+        <div class="lbl">地點</div>
+        <div class="val">Bangkok, Thailand<br>曼谷 · 泰國</div>
+      </div>
+      <div class="h-card">
+        <div class="ico">📅</div>
+        <div class="lbl">日期</div>
+        <div class="val">5月30日（六）<br>– 5月31日（日）</div>
+      </div>
+      <div class="h-card">
+        <div class="ico">⏱</div>
+        <div class="lbl">時間</div>
+        <div class="val">09:00 – 16:00<br>每天 6 小時</div>
+      </div>
+    </div>
+
+    <div class="flex gap-4 mt-10 rv" style="margin-top:2.5rem">
+      <a href="#day1" class="btn-gold mag">立即了解課程 →</a>
+      <a href="#instructor" class="btn-out mag">認識講師</a>
+    </div>
+  </div>
+
+  <div class="scroll-ind">
+    <span>SCROLL</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     MARQUEE
+══════════════════════════════════════════ -->
+<div class="mq-wrap">
+  <div class="mq-track">
+    <span class="mq-item">ChatGPT<span class="mq-dot"></span></span>
+    <span class="mq-item">Google Gemini<span class="mq-dot"></span></span>
+    <span class="mq-item">NotebookLM<span class="mq-dot"></span></span>
+    <span class="mq-item">Pomelli<span class="mq-dot"></span></span>
+    <span class="mq-item">Claude Pro<span class="mq-dot"></span></span>
+    <span class="mq-item">Manus AI<span class="mq-dot"></span></span>
+    <span class="mq-item">OpenClaw 🦞<span class="mq-dot"></span></span>
+    <span class="mq-item">AI Agent<span class="mq-dot"></span></span>
+    <span class="mq-item">Automation<span class="mq-dot"></span></span>
+    <span class="mq-item">Bangkok 2026<span class="mq-dot"></span></span>
+    <!-- Duplicate for seamless loop -->
+    <span class="mq-item">ChatGPT<span class="mq-dot"></span></span>
+    <span class="mq-item">Google Gemini<span class="mq-dot"></span></span>
+    <span class="mq-item">NotebookLM<span class="mq-dot"></span></span>
+    <span class="mq-item">Pomelli<span class="mq-dot"></span></span>
+    <span class="mq-item">Claude Pro<span class="mq-dot"></span></span>
+    <span class="mq-item">Manus AI<span class="mq-dot"></span></span>
+    <span class="mq-item">OpenClaw 🦞<span class="mq-dot"></span></span>
+    <span class="mq-item">AI Agent<span class="mq-dot"></span></span>
+    <span class="mq-item">Automation<span class="mq-dot"></span></span>
+    <span class="mq-item">Bangkok 2026<span class="mq-dot"></span></span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════ -->
+<section id="about">
+  <div class="ctr">
+    <div class="sec-hd rv">
+      <div class="sec-tag">關於課程</div>
+      <h2 class="sec-title">你不只是在「用 AI」——<br><span class="gt">你在指揮 AI 工作</span></h2>
+    </div>
+    <div class="lotus">
+      <div class="ll"></div><span class="ls">✿</span><div class="ll lr"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="rv">
+        <p style="font-size:14px;color:var(--mt);line-height:1.9;margin-bottom:1.5rem">
+          很多人覺得 AI 就是一個「很厲害的 Google」——問它問題，它給你答案。但現在不一樣了。你可以告訴 AI「去幫我整理這份報告寄給客戶」，它就真的去做，不只是告訴你怎麼做。這兩天，我們讓你親眼看見、親手試試這件事。
+        </p>
+
+        <div class="about-pts">
+          <div class="apt">
+            <div class="ap-ico">⚡</div>
+            <div>
+              <h4>不只是問答，而是真的幫你做事</h4>
+              <p>你說一句話，AI 去把事情完成。開檔案、整理數字、寄信——你不用動，AI 幫你做。</p>
+            </div>
+          </div>
+          <div class="apt">
+            <div class="ap-ico">🎯</div>
+            <div>
+              <h4>動手做，不只是看 Demo</h4>
+              <p>每個單元都有實作時間，課程結束前每位學員完成「30 天 AI 行動計畫卡」，確保學習真正落地。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rv" style="transition-delay:.2s">
+        <div class="bkk">
+          <span class="thai">ยินดีต้อนรับสู่กรุงเทพมหานคร</span>
+          <div style="font-size:3.5rem;margin:.5rem 0">🇹🇭</div>
+          <h3>Hosted in Bangkok</h3>
+          <p style="font-size:12px;color:rgba(212,160,23,.5);letter-spacing:3px;margin:.2rem 0">กรุงเทพมหานคร</p>
+          <div class="dates">MAY 30 – 31 · 2026</div>
+          <p>每天 09:00 – 16:00 · 6 小時實戰</p>
+
+          <div style="display:flex;justify-content:center;gap:2rem;margin-top:1.5rem">
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:900;font-family:'Playfair Display',serif;color:var(--g)">12h</div>
+              <div style="font-size:11px;color:var(--mt)">總授課時數</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:900;font-family:'Playfair Display',serif;color:var(--g)">7</div>
+              <div style="font-size:11px;color:var(--mt)">AI 工具</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:900;font-family:'Playfair Display',serif;color:var(--g)">30+</div>
+              <div style="font-size:11px;color:var(--mt)">Prompt 模板</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DAY 1
+══════════════════════════════════════════ -->
+<section id="day1" class="day-sec">
+  <div class="ctr">
+    <div class="rv">
+      <div class="day-badge">DAY 1 · 5月30日（六）</div>
+      <h2 class="day-title"><span class="gt">AI工作力啟動</span>｜從工具到效率爆發</h2>
+      <p class="day-sub">AI 幫你寫、幫你做、幫你懂人。從最常用、最容易上手的 AI 能力開始，每個單元都有你自己動手試的時間，帶著一個真實成果離場。</p>
+    </div>
+
+    <div class="sch">
+      <div class="si-mod rv">
+        <h4><span class="mod-num">開場</span> 今天你會學到什麼</h4>
+        <p>現場示範：AI 三分鐘幫你搞定一件平時要花半小時的事。每個人說出「最想讓 AI 幫你做的一件事」，我們在課程中找機會示範給你看。</p>
+      </div>
+
+      <div class="si-mod rv">
+        <h4><span class="mod-num">01</span> AI 幫你寫信、回信、翻譯</h4>
+        <p>不管是中文、英文還是泰文的信件、報告、客訴回覆，AI 幫你 30 秒生成，你只需要改幾個字確認就好。還能幫你看合約、整理重點、列出你要問的問題。<br>你給 AI 的指令越清楚，它做出來的東西就越好——這個單元教你怎麼跟 AI 說話。</p>
+        <span class="do-p">✏️ 實作：寫一封你平常會寫的信</span>
+      </div>
+
+      <div class="si-mod rv">
+        <h4><span class="mod-num">02</span> AI 幫你畫圖、做網頁</h4>
+        <p>用中文描述你想要的畫面，AI 幫你生成廣告圖、活動素材、社群貼文封面。不只是圖——你說「我需要一個活動報名頁」，AI 直接把網頁做好給你，不用找設計師，不用找工程師，不用學任何軟體。</p>
+        <span class="do-p">✏️ 實作：生成一張圖 + 試做一個頁面</span>
+      </div>
+
+      <div class="si-mod rv">
+        <h4><span class="mod-num">03</span> AI 幫你整理資料、把影片變成 Podcast</h4>
+        <p>把一份厚厚的 PDF、一本公司 SOP 手冊、或一支一小時的 YouTube 影片丟給 AI，AI 幫你整理成可以直接問答的知識庫（你問它答，不用自己翻）；把影片做成中文雙人對話 Podcast 音檔，通勤時聽。你的公司文件也可以這樣用——上傳進去，之後遇到問題直接問 AI，不用花時間找。</p>
+        <span class="do-p">✏️ 實作 15 分鐘</span>
+      </div>
+
+      <div class="si-mod rv">
+        <h4><span class="mod-num">04</span> AI 幫你一次寫完 100 天的文案</h4>
+        <p>社群媒體最大的痛：每天要想貼什麼。這個單元示範如何用 AI 一次產出 100 篇不重複的貼文文案——不是隨便的內容，而是有主題、有變化、有節奏的完整內容計畫。你只需要告訴 AI：你的品牌是什麼、你的受眾是誰，AI 就自動幫你規劃主題分類、生成文案、整理成表格，直接匯出可用。<br><strong style="color:var(--gl)">你一個週末，搞定未來三個月的社群內容。</strong></p>
+        <span class="do-p">✏️ 實作：選定主題，讓 AI 生成你的第一批文案</span>
+      </div>
+
+      <div class="si-mod rv">
+        <h4><span class="mod-num">05</span> AI 幫你做廣告素材</h4>
+        <p>你不用會設計、不用會 Photoshop、不用有設計師——只要貼上你的圖片，AI 就能自動生成一整組廣告素材：IG 貼文圖、FB 廣告橫幅、各平台尺寸，全部一次完成。還可以輸出成英文版或泰文版，直接用在不同市場。</p>
+        <span class="do-p">✏️ 實作：上傳一張你的產品圖，生成一組素材</span>
+      </div>
+
+      <div class="si-mod hl2 rv">
+        <h4><span class="mod-num">06</span> AI 幫你了解一個人的個性 <span class="bhot">壓軸</span></h4>
+        <p>用「算命」作為示範：你輸入生辰、個性類型或星座，AI 幫你生成一份詳細的個性分析和職場建議。懂了這個技巧，你可以讓 AI 扮演心理顧問、法律顧問、業務教練……任何你需要的角色，給你個性化的建議。</p>
+        <span class="do-p">✏️ 全員實作：輸入自己的資料，AI 即時生成個人分析</span>
+      </div>
+
+      <div class="si-mod egg rv">
+        <h4><span class="mod-num">彩蛋</span> 🦞 預告：明天你會看到什麼</h4>
+        <p>傳一句話給 AI，AI 直接在你電腦上把事情做好——不只是回覆你，是真的去操作、去完成。帶著這個問號，明天繼續。</p>
+      </div>
+    </div>
+
+    <!-- Day 1 帶回家 -->
+    <div class="day-value rv">
+      <div class="dv-title">今天可以帶回家的東西——絕對物超所值</div>
+      <div class="dv-grid">
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>多語言商業信件</strong>你自己的業務場景，AI 生成，改完就能寄</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>一個真實網頁</strong>你說一句話，AI 做好的活動頁或報名頁，帶走 HTML 直接用</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>Podcast 音檔</strong>從你的文件或影片生成的中文雙人對話，通勤時聽</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>100 篇社群文案</strong>你的品牌主題，AI 生成的完整文案庫，整理好可直接發布</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>品牌廣告素材組</strong>IG、FB、橫幅多尺寸，你的產品圖，AI 自動生成</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>個性分析報告</strong>依你的生辰或 MBTI 生成的個人化職場分析，不是模板</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>曼谷 AI 學習社群入場資格</strong>課後社群，持續交流工具更新與 Prompt 技巧</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     DAY 2
+══════════════════════════════════════════ -->
+<section id="day2" style="background:var(--bg);position:relative">
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--g),transparent)"></div>
+  <div class="ctr">
+    <div class="rv">
+      <div class="day-badge">DAY 2 · 5月31日（日）</div>
+      <h2 class="day-title"><span class="gt">AI自動賺錢系統</span>｜打造你的AI員工</h2>
+      <p class="day-sub">你下指令，AI 去做，你去睡覺。讓 AI 記住你、幫你操控電腦、自動上網查資料，甚至用 WhatsApp 就能遠端指揮——這是 AI 幫你做事的真正樣子。</p>
+    </div>
+
+    <div class="sch">
+      <div class="si-mod rv">
+        <h4><span class="mod-num">開場</span> 昨天你試了什麼？</h4>
+        <p>幾位學員分享昨晚的 AI 使用心得。今天的核心轉變：AI 不只是幫你產出內容，而是可以代替你完成任務。差別是什麼？一個現場示範，讓你立刻懂。</p>
+      </div>
+
+      <div class="si-mod rv">
+        <h4><span class="mod-num">01</span> AI 複製你的大腦</h4>
+        <p>你有沒有每次找 AI 幫忙都要重新介紹自己？「我是做製造業的，在曼谷，主要客戶是……」——這很煩。這個單元教你建立「AI 記憶庫」：把你的公司資料、產品手冊、客戶話術、常見問題，全部放進去。之後每次跟 AI 對話，它都已經知道你的所有背景，直接給你適合你的答案。你還可以設定「AI 的工作習慣」——讓它照你的喜好、你的格式、你的語氣來做事。</p>
+        <span class="do-p">✏️ 實作：建立你自己的 AI 記憶庫</span>
+      </div>
+
+      <div class="si-mod hl2 rv">
+        <h4><span class="mod-num">02</span> AI 變成你的手 <span class="bhot">最震撼</span></h4>
+        <p>AI 可以像人一樣操作你的電腦：打開 Excel、讀資料、做圖表、存檔、寄信——全部自動完成，你不用在場。現場示範：講師完全不碰電腦，只是跟 AI 說要做什麼，大螢幕直播 AI 自己把一整套工作做完。</p>
+        <ul>
+          <li>每週要整理的出貨報表 → AI 自動整理並寄出</li>
+          <li>掃描文件然後填到系統裡 → AI 自動完成</li>
+          <li>定時監控某個網頁是否更新 → AI 自動盯著</li>
+        </ul>
+        <p style="margin-top:.5rem;color:var(--gl);font-weight:600;font-size:13px">這不是未來，這是現在。</p>
+      </div>
+
+      <div class="si-mod rv">
+        <h4><span class="mod-num">03</span> AI 幫你查資料、寫完整報告</h4>
+        <p>你說出一個題目，AI 自己去找資料——自動瀏覽多個網站、整合不同來源、寫成一份有結論有來源的完整報告。</p>
+        <ul>
+          <li>「幫我調查曼谷幾個工業區現在的倉庫租金行情」</li>
+          <li>「幫我分析這個行業前三名競品的功能和定價」</li>
+          <li>「幫我查這家公司的背景資料」</li>
+        </ul>
+        <p style="margin-top:.5rem;font-size:12px;color:var(--mt)">從下指令到拿到報告，大約 10–20 分鐘，你在旁邊喝咖啡就好。</p>
+      </div>
+
+      <div class="si-mod hl2 rv">
+        <h4><span class="mod-num">04</span> 🦞 OpenClaw 龍蝦養殖示範 <span class="bhot">完全免費</span></h4>
+        <p>用你手機的 WhatsApp 傳一句話，AI 在你的電腦上自動把事情做好——就算你在外面開會、在路上、在睡覺也沒關係。今天的現場示範主題：龍蝦養殖管理自動化。從水質監控通報、飼料記錄整理，到市場行情彙整——全部只用一句 WhatsApp 訊息觸發，AI 自動完成並回報結果。<strong style="color:var(--gl)">最重要的是：完全免費，不用訂閱任何服務。</strong></p>
+        <div style="margin-top:.8rem;padding:.9rem 1rem;background:rgba(212,160,23,.06);border-radius:10px;border:1px solid rgba(212,160,23,.2);font-size:13px;color:var(--mt)">
+          今天學的三種「讓 AI 幫你做事」的方法：<br>
+          🤖 AI 變成你的手，直接操控電腦（Claude Cowork）<br>
+          🔍 讓 AI 自己上網找資料做報告（Manus）<br>
+          📱 用 WhatsApp 叫 AI 工作，人在哪都沒關係（OpenClaw 🦞）
+        </div>
+      </div>
+
+      <div class="si-mod rv">
+        <h4><span class="mod-num">結業</span> 選一件事，回去讓 AI 幫你做</h4>
+        <p>兩天課程最後，每個人寫下：「我回去之後，要讓 AI 幫我做的一件事」。不需要很大，就一件。小組分享，互相督促。帶走完整資源包：模板、連結、教學文件、30 天打卡挑戰表。</p>
+      </div>
+    </div>
+
+    <!-- Day 2 帶回家 -->
+    <div class="day-value rv">
+      <div class="dv-title">今天可以帶回家的東西——絕對物超所值</div>
+      <div class="dv-grid">
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>公司專屬 AI 記憶庫</strong>裝進公司資料、話術、SOP，之後每次問 AI 都不用重新介紹自己</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>AI 私人助理</strong>設定好你的偏好與工作方式，AI 永遠用你的語氣、你的格式替你做事</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>快速生成網頁</strong>說出你的需求，AI 即時產出完整網頁，不需設計師也不需工程師</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>市場調查報告</strong>你指定題目，AI 自動上網整合，帶一份真實報告回去</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>30 天 AI 行動計畫卡</strong>選定工具、場景、成效指標，讓學習真正落地不只停在課堂</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>即用資源包</strong>30+ 繁中 Prompt 模板、所有工具連結、30 天打卡表</div>
+        </div>
+        <div class="dv-item">
+          <div class="dv-ico">✦</div>
+          <div class="dv-txt"><strong>曼谷 AI 學習社群入場資格</strong>課後社群，持續交流工具更新與 Prompt 技巧</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TOOLS
+══════════════════════════════════════════ -->
+<section id="tools">
+  <div class="ctr">
+    <div class="sec-hd rv">
+      <div class="sec-tag">七大 AI 工具</div>
+      <h2 class="sec-title">這兩天你會親手用到的<br><span class="gt">七個 AI 工具</span></h2>
+      <p class="sec-desc">每個工具都有它最適合的場景——課程中你都會親眼看到、親手試試。</p>
+    </div>
+    <div class="lotus">
+      <div class="ll"></div><span class="ls">✿</span><div class="ll lr"></div>
+    </div>
+
+    <div class="tool-row">
+      <div class="t-ico">🤖</div>
+      <div>
+        <div class="t-nm">ChatGPT</div>
+        <div class="t-desc">幫你寫信、回信、翻譯、整理合約重點，任何語言都可以。問它一個問題，30 秒給你一份可以直接用的回覆。</div>
+      </div>
+    </div>
+    <div class="tool-row">
+      <div class="t-ico">💎</div>
+      <div>
+        <div class="t-nm">Google Gemini</div>
+        <div class="t-desc">幫你生成廣告圖、直接做出網頁，說什麼就做什麼。不用找設計師，不用找工程師，說出你想要的，AI 直接交件。</div>
+      </div>
+    </div>
+    <div class="tool-row">
+      <div class="t-ico">📓</div>
+      <div>
+        <div class="t-nm">NotebookLM</div>
+        <div class="t-desc">把你的文件或影片變成可以問答的知識庫，還能做成 Podcast。公司 SOP、合約、報告——全部變成你的 AI 助手。</div>
+      </div>
+    </div>
+    <div class="tool-row">
+      <div class="t-ico">🎨</div>
+      <div>
+        <div class="t-nm">Pomelli</div>
+        <div class="t-desc">貼你的官網，AI 直接生成一整組品牌廣告素材，多語言都有。IG、FB、橫幅——一鍵生成整套，適合所有平台與市場。</div>
+      </div>
+    </div>
+    <div class="tool-row" style="border-color:rgba(212,160,23,.3)">
+      <div class="t-ico">🔮</div>
+      <div>
+        <div class="t-nm">Claude Pro</div>
+        <div class="t-desc">記住你的公司背景、幫你操控電腦做事、建立你的 AI 工作流程。Day 2 的主角——讓 AI 真的變成你的員工。</div>
+      </div>
+    </div>
+    <div class="tool-row">
+      <div class="t-ico">⚡</div>
+      <div>
+        <div class="t-nm">Manus AI</div>
+        <div class="t-desc">說出你要查的題目，AI 自己上網找資料整合成完整報告。你在旁邊喝咖啡，AI 幫你做完市場調查、競品分析、背景調查。</div>
+      </div>
+    </div>
+    <div class="tool-row" style="border-color:rgba(255,80,20,.25)">
+      <div class="t-ico">🦞</div>
+      <div>
+        <div class="t-nm">OpenClaw <span style="font-size:12px;color:rgba(255,80,20,.8);margin-left:.4rem">完全免費開源</span></div>
+        <div class="t-desc">用你手機的 WhatsApp 傳一句話，AI 在你電腦上自動把事情做好。完全免費，不用訂閱任何服務。GitHub 10 萬顆星，2026 年最熱門 AI Agent。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TAKEAWAYS
+══════════════════════════════════════════ -->
+<section id="takeaways" style="background:linear-gradient(135deg,#0C0820,#07070F)">
+  <div class="ctr">
+    <div class="sec-hd rv">
+      <div class="sec-tag">你帶走什麼</div>
+      <h2 class="sec-title">課程結束，<span class="gt">你帶走什麼</span></h2>
+    </div>
+    <div class="lotus">
+      <div class="ll"></div><span class="ls">✿</span><div class="ll lr"></div>
+    </div>
+
+    <div class="tw-grid">
+      <div class="tw rv">
+        <div class="tw-ico">🧠</div>
+        <div class="tw-title">七個 AI 工具，自己動手試過</div>
+        <div class="tw-desc">不是看講師示範，是你自己試過的，有感覺、知道怎麼用，真正建立使用直覺。</div>
+      </div>
+      <div class="tw rv d1">
+        <div class="tw-ico">⚡</div>
+        <div class="tw-title">讓 AI 替你工作的方法</div>
+        <div class="tw-desc">讓 AI 記住你、讓 AI 操電腦、讓 AI 查資料、用 WhatsApp 叫 AI 工作——四種方法你都學過了。</div>
+      </div>
+      <div class="tw rv d2">
+        <div class="tw-ico">📦</div>
+        <div class="tw-title">即拿即用資源包</div>
+        <div class="tw-desc">30+ 繁體中文 Prompt 模板、所有工具資源連結、OpenClaw 安裝教學、AI 工具選用指南，回去馬上能用。</div>
+      </div>
+      <div class="tw rv">
+        <div class="tw-ico">🗺</div>
+        <div class="tw-title">你的 30 天 AI 行動計畫</div>
+        <div class="tw-desc">課程結束前完成「30 天計畫卡」，選定工具、場景、指標，讓學習真正落地，而不是停在課堂。</div>
+      </div>
+      <div class="tw rv d1">
+        <div class="tw-ico">🌏</div>
+        <div class="tw-title">多語言 AI 工作流</div>
+        <div class="tw-desc">所有示範以「中文輸入→多語言輸出」為主軸，直接對應東南亞工作環境的跨語言溝通與行銷需求。</div>
+      </div>
+      <div class="tw rv d2">
+        <div class="tw-ico">👥</div>
+        <div class="tw-title">曼谷在地 AI 學習社群</div>
+        <div class="tw-desc">與同樣在曼谷使用 AI 的夥伴建立連結，課後持續交流最新工具應用，不孤單地走這段學習旅程。</div>
+      </div>
+    </div>
+
+    <div class="stats-row rv" style="margin-top:3rem">
+      <div class="sr">
+        <span class="sr-num" data-n="7">7</span>
+        <div class="sr-lbl">頂級 AI 工具</div>
+      </div>
+      <div class="sr">
+        <span class="sr-num" data-n="12">12</span>
+        <div class="sr-lbl">小時授課時數</div>
+      </div>
+      <div class="sr">
+        <span class="sr-num" data-n="30">30+</span>
+        <div class="sr-lbl">繁中 Prompt 模板</div>
+      </div>
+      <div class="sr">
+        <span class="sr-num" data-n="0">0</span>
+        <div class="sr-lbl">程式技術門檻</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     AUDIENCE
+══════════════════════════════════════════ -->
+<section id="audience">
+  <div class="ctr">
+    <div class="sec-hd rv">
+      <div class="sec-tag">這門課，為你設計</div>
+      <h2 class="sec-title">你是<span class="gt">這樣的人</span>嗎？</h2>
+    </div>
+    <div class="lotus">
+      <div class="ll"></div><span class="ls">✿</span><div class="ll lr"></div>
+    </div>
+
+    <div class="aud-grid">
+      <div class="aud rv">
+        <div class="aud-title"><span class="aud-ck">✓</span>在泰國工作的商務人士</div>
+        <div class="aud-desc">需要跨語言溝通、快速產出多語言內容、處理跨國文件，AI 是你在東南亞最需要的助手。</div>
+      </div>
+      <div class="aud rv d1">
+        <div class="aud-title"><span class="aud-ck">✓</span>中小企業主與管理者</div>
+        <div class="aud-desc">想降低重複性人力成本、提升效率，又沒時間深入學技術。這門課直接給你能落地的解法。</div>
+      </div>
+      <div class="aud rv d2">
+        <div class="aud-title"><span class="aud-ck">✓</span>行銷與內容工作者</div>
+        <div class="aud-desc">需要快速產出多平台素材、多語言文案、品牌視覺的你，AI 工具可以讓你的效率倍增。</div>
+      </div>
+      <div class="aud rv d3">
+        <div class="aud-title"><span class="aud-ck">✓</span>對 AI 好奇、不知從何開始的人</div>
+        <div class="aud-desc">不需任何技術背景，不需會寫程式。從零開始，兩天建立使用信心與操作能力。</div>
+      </div>
+      <div class="aud rv">
+        <div class="aud-title"><span class="aud-ck">✓</span>已用 ChatGPT 但想更進一步的人</div>
+        <div class="aud-desc">停留在「問問題、貼答案」？這門課帶你進入 AI Agent 真正幫你做事的境界。</div>
+      </div>
+      <div class="aud rv d1" style="background:rgba(212,160,23,.06);border-color:rgba(212,160,23,.3)">
+        <div style="font-size:1.8rem;margin-bottom:.7rem">🇹🇭</div>
+        <div class="aud-title" style="color:var(--gl)">為曼谷場景量身設計</div>
+        <div class="aud-desc">所有示範均以東南亞商業環境為情境，涵蓋中文、泰文、英文三語輸出，直接對應你在曼谷工作的真實需求。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     INSTRUCTOR
+══════════════════════════════════════════ -->
+<section id="instructor" style="background:linear-gradient(135deg,#060D07 0%,#07070F 50%,#0C0718 100%)">
+  <div class="ctr">
+    <div class="sec-hd rv">
+      <div class="sec-tag">課程講師</div>
+      <h2 class="sec-title"><span class="gt">李銘尉 博士</span></h2>
+    </div>
+    <div class="lotus">
+      <div class="ll"></div><span class="ls">✿</span><div class="ll lr"></div>
+    </div>
+
+    <div class="inst-grid">
+      <div class="inst-pw rv">
+        <img src="instructor.jpg" alt="李銘尉 博士 AI 行銷專家" class="inst-photo"
+          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22340%22%3E%3Crect fill=%22%23141428%22 width=%22280%22 height=%22340%22 rx=%2224%22/%3E%3Ctext x=%22140%22 y=%22155%22 text-anchor=%22middle%22 fill=%22%23D4A017%22 font-size=%2268%22%3E👨‍💼%3C/text%3E%3Ctext x=%22140%22 y=%22210%22 text-anchor=%22middle%22 fill=%22%23F2C94C%22 font-size=%2218%22 font-family=%22sans-serif%22 font-weight=%22bold%22%3E李銘尉 博士%3C/text%3E%3Ctext x=%22140%22 y=%22238%22 text-anchor=%22middle%22 fill=%22%238A7E6E%22 font-size=%2213%22 font-family=%22sans-serif%22%3EAI 行銷專家%3C/text%3E%3C/svg%3E'">
+        <div class="inst-frame"></div>
+      </div>
+
+      <div class="rv d2">
+        <h2 class="inst-name">李銘尉 博士</h2>
+        <div class="inst-role">AI 行銷專家</div>
+
+        <div style="margin-bottom:1.3rem">
+          <span class="ibadge">🏅 3 項 AI 系統專利</span>
+          <span class="ibadge">🎓 博士學位</span>
+          <span class="ibadge">🚀 AI 新創事業</span>
+        </div>
+
+        <p class="inst-bio">
+          具備紮實的學術底蘊與豐富的業界實戰經驗，持有 3 項 AI 系統專利，並主導多項 AI 新創事業。長期深耕數位行銷、AI 應用與自動化領域，擅長將複雜的 AI 技術轉化為每個人都能立即上手的實戰工具。
+        </p>
+        <p class="inst-bio">
+          課程設計強調「學了就能用」——不談艱深理論，只教能直接帶回工作場景應用的技能。兩天課程背後，是多年實際操作 AI 系統、執行 AI 導入專案的第一手經驗。
+        </p>
+
+        <div>
+          <span class="itag">📊 數位行銷</span>
+          <span class="itag">🤖 AI 系統開發</span>
+          <span class="itag">⚡ 行銷自動化</span>
+          <span class="itag">🎓 大學課程講師</span>
+          <span class="itag">🌏 東南亞市場</span>
+          <span class="itag">🏭 AI 新創事業</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════ -->
+<section id="faq" style="background:var(--bm)">
+  <div class="ctr">
+    <div class="sec-hd rv">
+      <div class="sec-tag">FAQ</div>
+      <h2 class="sec-title">常見<span class="gt">問題解答</span></h2>
+    </div>
+    <div class="lotus">
+      <div class="ll"></div><span class="ls">✿</span><div class="ll lr"></div>
+    </div>
+
+    <div class="fq-wrap">
+      <div class="fq rv" onclick="toggleFaq(this)">
+        <div class="fq-q">完全沒有 AI 使用經驗可以參加嗎？<span class="fq-ic">+</span></div>
+        <div class="fq-a"><p>完全可以。課程從帳號設定開始，不預設任何技術背景，也不需要會寫程式。唯一的要求是帶著好奇心來。</p></div>
+      </div>
+      <div class="fq rv d1" onclick="toggleFaq(this)">
+        <div class="fq-q">可以只報名其中一天嗎？<span class="fq-ic">+</span></div>
+        <div class="fq-a"><p>可以單日報名。兩天課程各自獨立完整——Day 1 專注 AI 工具入門，Day 2 專注 AI Agent 自動化進階。但強烈建議報名兩天，學習效果最佳。</p></div>
+      </div>
+      <div class="fq rv d2" onclick="toggleFaq(this)">
+        <div class="fq-q">已經在用 ChatGPT 了，這門課還有價值嗎？<span class="fq-ic">+</span></div>
+        <div class="fq-a"><p>非常有價值。ChatGPT 只是七個工具之一，而且大多數使用者仍停在基礎對話階段。Day 2 的 Projects、Skills、Cowork、Manus、OpenClaw 是大多數人完全沒嘗試過的維度，也是真正改變工作方式的技術。</p></div>
+      </div>
+      <div class="fq rv d3" onclick="toggleFaq(this)">
+        <div class="fq-q">課程全程使用繁體中文嗎？<span class="fq-ic">+</span></div>
+        <div class="fq-a"><p>是的，授課語言為繁體中文。投影片與講義均為繁體中文，工具 Demo 以中文輸入為主，並示範多語言輸出。</p></div>
+      </div>
+      <div class="fq rv" onclick="toggleFaq(this)">
+        <div class="fq-q">課後還有支援嗎？<span class="fq-ic">+</span></div>
+        <div class="fq-a"><p>有的。報名學員可加入課後 LINE 社群，持續交流 AI 工具最新動態與 Prompt 技巧，課程資源包也會定期更新。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="ft-pattern">✦ ❋ ✦ ❋ ✦ ❋ ✦ ❋ ✦</div>
+    <div class="ft-title">Bangkok AI Workshop 2026</div>
+    <div class="ft-sub">引爆 AI 代理新革命 實戰工作坊</div>
+
+    <div class="ft-info">
+      <span>📍 Bangkok, Thailand</span>
+      <span>📅 2026.05.30 – 31</span>
+      <span>⏱ 09:00 – 16:00 每天</span>
+      <span>🇹🇭 กรุงเทพมหานคร</span>
+    </div>
+
+    <div style="display:flex;justify-content:center;gap:1rem;margin-bottom:2rem">
+      <a href="#hero" class="btn-gold mag" style="font-size:13px;padding:11px 26px">回到頂部 ↑</a>
+    </div>
+
+    <div class="ft-pattern">✦ ❋ ✦ ❋ ✦</div>
+    <div class="ft-copy">© 2026 Bangkok AI Workshop · 李銘尉 博士 · All Rights Reserved</div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+// ── GSAP Setup ──
+gsap.registerPlugin(ScrollTrigger);
+
+// ── CURSOR ──
+const cr = document.getElementById('cr');
+const cd = document.getElementById('cd');
+let mx = 0, my = 0, cx = 0, cy = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animCursor() {
+  cx += (mx - cx) * 0.12;
+  cy += (my - cy) * 0.12;
+  cr.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
+  cd.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a, button, .fq-q, .si, .tool-row, .tw, .aud, .fq').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+});
+
+// ── PARTICLES ──
+const pc = document.getElementById('pts');
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement('div');
+  p.className = 'pt';
+  const sz = Math.random() * 4 + 1.5;
+  const diamond = Math.random() > .55;
+  p.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;animation-duration:${9+Math.random()*14}s;animation-delay:${Math.random()*15}s;border-radius:${diamond?'0':'50%'};transform:rotate(${diamond?45:0}deg)`;
+  pc.appendChild(p);
+}
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+}, {passive:true});
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+});
+
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, {threshold: 0.1});
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+// ── FAQ ──
+function toggleFaq(el) { el.classList.toggle('open'); }
+
+// ── GSAP HERO ENTRANCE ──
+gsap.from('#heroTitle', {opacity:0, y:50, duration:1.2, ease:'power3.out', delay:.3});
+gsap.from('.h-tag', {opacity:0, y:20, duration:.8, ease:'power2.out', delay:.1});
+gsap.from('.h-sub', {opacity:0, y:30, duration:1, ease:'power2.out', delay:.5});
+gsap.from('.h-stats', {opacity:0, y:25, duration:.9, ease:'power2.out', delay:.7});
+gsap.from('.h-cards', {opacity:0, y:20, duration:.8, ease:'power2.out', delay:.9});
+gsap.from('.scroll-ind', {opacity:0, y:10, duration:.8, delay:1.4});
+
+// ── GSAP SCROLL ANIMATIONS ──
+gsap.utils.toArray('.sch-item, .tool-row').forEach((el, i) => {
+  gsap.from(el, {opacity:0, x:-20, duration:.6, delay:i * .05, ease:'power2.out',
+    scrollTrigger:{trigger:el, start:'top 90%', toggleActions:'play none none none'}
+  });
+});
+
+// ── COUNTER ANIMATION ──
+function animCounter(el) {
+  const target = parseInt(el.dataset.n) || 0;
+  if (isNaN(target)) return;
+  const suffix = el.textContent.includes('+') ? '+' : '';
+  gsap.fromTo(el, {innerText: 0}, {
+    innerText: target,
+    duration: 2,
+    ease: 'power2.out',
+    snap: {innerText: 1},
+    onUpdate() { el.textContent = Math.round(this.targets()[0].innerText) + suffix; }
+  });
+}
+const cntObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animCounter(e.target);
+      cntObs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('[data-n]').forEach(el => cntObs.observe(el));
+document.querySelectorAll('.sr-num').forEach(el => cntObs.observe(el));
+
+// ── MAGNETIC BUTTONS ──
+document.querySelectorAll('.mag').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width/2);
+    const dy = e.clientY - (r.top + r.height/2);
+    gsap.to(btn, {x: dx*.25, y: dy*.25, duration:.4, ease:'power2.out'});
+  });
+  btn.addEventListener('mouseleave', () => {
+    gsap.to(btn, {x:0, y:0, duration:.6, ease:'elastic.out(1,.5)'});
+  });
+});
+
+// ── PARALLAX HERO ──
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const img = document.querySelector('.h-img');
+  const glow = document.querySelector('.h-glow');
+  if (img) img.style.transform = `translateY(${y * .35}px)`;
+  if (glow) glow.style.transform = `translate(-50%, calc(-50% + ${y * .2}px))`;
+}, {passive:true});
+</script>
+</body>
+</html>
